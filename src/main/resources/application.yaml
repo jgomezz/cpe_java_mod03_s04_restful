@@ -7,3 +7,7 @@ spring:
     url: jdbc:mariadb://localhost:3306/tiendaapi
     username: root
     password: root
+
+app:
+  storage:
+    path: /Users/developer/var/data/
