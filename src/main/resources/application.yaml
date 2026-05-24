@@ -1,3 +1,9 @@
 spring:
   application:
     name: cpe_java_mod03_s04_restful
+
+  # Database configuration
+  datasource:
+    url: jdbc:mariadb://localhost:3306/tiendaapi
+    username: root
+    password: root
