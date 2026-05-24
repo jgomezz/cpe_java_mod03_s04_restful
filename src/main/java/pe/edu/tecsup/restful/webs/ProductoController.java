@@ -2,6 +2,7 @@ package pe.edu.tecsup.restful.webs;
 
 
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
@@ -19,10 +20,12 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
-@AllArgsConstructor
+//@AllArgsConstructor
+@RequiredArgsConstructor
 @Slf4j
 @RestController
 public class ProductoController {
+
 
     @Value("${app.storage.path}")
     private String STORAGEPATH;
@@ -44,9 +47,9 @@ public class ProductoController {
     @GetMapping("/productos/images/{filename:.+}")
     public ResponseEntity<Resource> getImage(@PathVariable String filename) throws
             Exception {
-        log.info("call images: " + filename);
+        log.info("call images: {}", filename);
         Path path = Paths.get(STORAGEPATH).resolve(filename);
-        log.info("Path: " + path);
+        log.info("Path: {}", path);
 
         if (!Files.exists(path)) {
             return ResponseEntity.notFound().build(); //
@@ -54,7 +57,8 @@ public class ProductoController {
 
         Resource resource = new UrlResource(path.toUri());
 
-        log.info("Resource: " + resource);
+        log.info("Resource: {}", resource);
+
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION,
                         "inline; filename='" + resource.getFilename() + "'")
